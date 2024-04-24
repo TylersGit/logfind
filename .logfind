@@ -1,1 +1,3 @@
 /var/log/messages
+/var/log/messages.1
+/var/log/messages.2

@@ -8,9 +8,9 @@ char **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
 
   char *rc = NULL;
   int true = 1;
-  // I tried to initialize an array with a single poinnter. This 
+  // I tried to initialize an array with a single poinnter. This
   // did not work. Only the first element was initialized properly, but
-  // I did not malloc enough memory for additional items. 
+  // I did not malloc enough memory for additional items.
   char **files_to_search = malloc(sizeof(char *) * MAX_FILES_TO_SEARCH);
   char **orig_address = files_to_search;
 
@@ -36,24 +36,27 @@ error:
     free(*files_to_search);
 }
 
-// void cleanup(FILE *logfind_dot_file, char **file_list, int *ptr_number_of_lines)
-// {
-//   int i = 0;
-//   if (logfind_dot_file)
-//     free(logfind_dot_file);
-//   for (i = 0; file_list[i]; i++)
-//   {
-//     if (strcmp(file_list[i], "") == 0 || file_list[i] == NULL)
-//     {
-//       break;
-//     }
-//     if (file_list[i]) free(file_list[i]);
-//   }
-//  if (ptr_number_of_lines)
-//  {
-//   free(ptr_number_of_lines);
-//  }
-// }
+void cleanup(FILE *logfind_dot_file, char **file_list)
+{
+  int i = 0;
+  if (logfind_dot_file)
+  {
+    fclose(logfind_dot_file);
+  }
+  
+  
+  if (file_list)
+  {
+    for (i = 0; i < MAX_FILES_TO_SEARCH; i++)
+    {
+      if (file_list[i])
+      {
+        free(file_list[i]);
+      }
+    }
+    free(file_list);
+  }
+}
 
 int main(int argc, char *argv[])
 {
@@ -72,9 +75,9 @@ int main(int argc, char *argv[])
     printf("String: %s \n", file_list[i]);
   }
 
-  // cleanup(logfind_dot_file, file_list);
+  cleanup(logfind_dot_file, file_list);
   return 0;
 error:
-  // cleanup(logfind_dot_file, file_list);
+  cleanup(logfind_dot_file, file_list);
   return -1;
 }

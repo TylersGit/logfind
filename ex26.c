@@ -61,11 +61,12 @@ void cleanup(FILE *logfind_dot_file, char **file_list)
 int main(int argc, char *argv[])
 {
   FILE *logfind_dot_file = fopen(DOT_FILE, "r");
-  check(logfind_dot_file != NULL, "Failed to load file.");
+  check(logfind_dot_file != NULL, "Failed to load dot file.");
   int number_of_lines = 0;
   int *ptr_number_of_lines = &number_of_lines;
 
   char **file_list = read_logfind_dot_file(logfind_dot_file, ptr_number_of_lines);
+  check(file_list != NULL, "Failed to read content of dot file.");
 
   int i = 0;
   for (i = 0; i < number_of_lines; i++)

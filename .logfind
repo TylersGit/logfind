@@ -1,1 +1,9 @@
 /var/log/messages
+/var/log/messages.1
+/var/log/messages.2
+/var/log/messages.3
+/var/log/messages.4
+/var/log/messages.5
+/var/log/messages.6
+/var/log/messages.7
+/var/log/messages.8

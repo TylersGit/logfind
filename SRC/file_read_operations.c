@@ -34,3 +34,14 @@ char **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
 error:
   cleanup(logfind_dot_file, files_to_search);
 }
+
+void print_file_list(char **file_list, int number_of_lines)
+{
+  int i = 0;
+  for (i = 0; i < number_of_lines; i++)
+  {
+    if (strcmp(file_list[i], "") == 0 || file_list[i] == NULL)
+      break;
+    printf("String: %s \n", file_list[i]);
+  }
+}

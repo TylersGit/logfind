@@ -7,6 +7,8 @@
 
 char **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines);
 
+void print_file_list(char **file_list, int number_of_lines)
+
 void cleanup(FILE *logfind_dot_file, char **file_list);
 
 #endif

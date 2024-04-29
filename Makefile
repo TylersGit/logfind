@@ -7,3 +7,6 @@ target: $(objects)
 	
 clean:
 	rm -f ex26
+
+clean_all: clean
+	rm ./SRC/*.o

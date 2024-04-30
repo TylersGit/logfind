@@ -44,7 +44,9 @@ int main(int argc, char *argv[])
   char **file_list = read_logfind_dot_file(logfind_dot_file, ptr_number_of_lines);
   check(file_list != NULL, "Failed to read content of dot file.");
 
-  // print_file_list(file_list, number_of_lines);
+  #ifndef NDEBUG
+  print_file_list(file_list, number_of_lines);
+  #endif
 
   // TODO: Searching for keywords in files should be added as a callback function.
   // This can be done by creating a pointer a function, and calling one of the 

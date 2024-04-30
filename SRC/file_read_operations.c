@@ -20,11 +20,16 @@ char **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
   {
     *files_to_search = malloc(MAX_DATA);
     rc = fgets(*files_to_search, MAX_DATA, logfind_dot_file);
-
+    
     if (rc == NULL)
     {
       break;
     }
+
+    // strcspn gets the length of the string until the charset (second string - "\n") is met. 
+    // We use it to get the index of the \n char and replace it with a terminator byte. 
+    rc[strcspn(rc, "\n")] = 0;
+
 
     files_to_search++;
     (*number_of_lines)++;

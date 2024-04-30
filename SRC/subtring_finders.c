@@ -8,7 +8,7 @@ int finder(char **files_to_search, int files_to_search_len, char **words_to_sear
     // Otherwise, return 0.
     int rc = 0;
     
-    // check(finder_func != NULL, "finder_func not provided.");
+    check(finder_func != NULL, "finder_func not provided.");
 
     for (int i = 0; i < files_to_search_len; i++)
     {

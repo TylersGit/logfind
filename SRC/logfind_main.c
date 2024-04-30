@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
   // TODO: Update cleanup function to free the words_to_search array.
   char **words_to_search = malloc(sizeof(char *) * words_to_search_len);
   memcpy(words_to_search, &argv[1], sizeof(char *) * words_to_search_len);
+  check(words_to_search != NULL, "Failed to copy argv to words_to_search.");
 
   char **file_list = read_logfind_dot_file(logfind_dot_file, ptr_number_of_lines);
   check(file_list != NULL, "Failed to read content of dot file.");
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
   // This can be done by creating a pointer a function, and calling one of the 
   // functions in substring_finders.c accordingly.
 
-  finder(file_list, number_of_lines, words_to_search, words_to_search_len, NULL);
+  finder(file_list, number_of_lines, words_to_search, words_to_search_len, finder_or);
 
   cleanup(logfind_dot_file, file_list);
   return 0;

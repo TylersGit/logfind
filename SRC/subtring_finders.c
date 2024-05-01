@@ -2,6 +2,7 @@
 #include "dbg.h"
 #include "logfind.h"
 
+// FIXME: Matches are found multiple times. Instead of printing a line once, it is printed 4 or so times.
 void finder(char **files_to_search, int files_to_search_len, char **words_to_search, int words_to_search_len, finder_cb finder_func)
 {
     // Verify finder func is provided.
@@ -28,7 +29,7 @@ void finder(char **files_to_search, int files_to_search_len, char **words_to_sea
 
         fclose(cur_file);
     }
-    
+
     return; 
 error:
     // TODO: Add cleanup. see above.
@@ -37,12 +38,24 @@ error:
 
 int finder_and(char *line, char **words_to_search, int words_to_search_len)
 {
-    // TODO: Implement AND match. 
-    return 0;
+    for (int i = 0; i < words_to_search_len; i++)
+    {
+        if (!strstr(line, words_to_search[i])){
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 int finder_or(char *line, char **words_to_search, int words_to_search_len)
 {
-    // TODO: Implement OR match.
+    for (int i = 0; i < words_to_search_len; i++)
+    {
+        if (strstr(line, words_to_search[i])){
+            return 1;
+        }
+    }
+    
     return 0;
 }

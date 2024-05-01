@@ -2,12 +2,11 @@
 #include "dbg.h"
 #include "logfind.h"
 
-int finder(char **files_to_search, int files_to_search_len, char **words_to_search, int words_to_search_len, finder_cb finder_func)
+void finder(char **files_to_search, int files_to_search_len, char **words_to_search, int words_to_search_len, finder_cb finder_func)
 {
-    // If the match is found according to search function, return 1.
-    // Otherwise, return 0.
-    int rc = 0;
-    
+    // Verify finder func is provided.
+    // We do not need to check for the rest of the arguments, as they are already 
+    // verified earlier in the program.
     check(finder_func != NULL, "finder_func not provided.");
 
     for (int i = 0; i < files_to_search_len; i++)
@@ -17,23 +16,33 @@ int finder(char **files_to_search, int files_to_search_len, char **words_to_sear
         FILE *cur_file = fopen(files_to_search[i], "r");
         check(cur_file != NULL, "Failed to open file %s.\n", files_to_search[i]);
 
-        printf("String: %s", files_to_search[i]);
+        char line[MAX_DATA];
+        while (fgets(line, sizeof(line), cur_file))
+        {
+            int rc = finder_func(line, words_to_search, words_to_search_len);
+            
+            if (rc == 1) {
+                printf("%s: %s", files_to_search[i], line);
+            }
+        }
 
         fclose(cur_file);
     }
-
-    return rc;
+    
+    return; 
 error:
     // TODO: Add cleanup. see above.
-    return -1;
+    printf("Error handling still needs to be added\n");
 }
 
 int finder_and(char *line, char **words_to_search, int words_to_search_len)
 {
+    // TODO: Implement AND match. 
     return 0;
 }
 
 int finder_or(char *line, char **words_to_search, int words_to_search_len)
 {
+    // TODO: Implement OR match.
     return 0;
 }

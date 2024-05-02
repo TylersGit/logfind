@@ -48,10 +48,6 @@ int main(int argc, char *argv[])
   print_file_list(file_list, number_of_lines);
   #endif
 
-  // TODO: Searching for keywords in files should be added as a callback function.
-  // This can be done by creating a pointer a function, and calling one of the 
-  // functions in substring_finders.c accordingly.
-
   finder(file_list, number_of_lines, words_to_search, words_to_search_len, finder_or);
 
   cleanup(logfind_dot_file, file_list);

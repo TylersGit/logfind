@@ -2,7 +2,6 @@
 #include "dbg.h"
 #include "logfind.h"
 
-// FIXME: Matches are found multiple times. Instead of printing a line once, it is printed 4 or so times.
 void finder(char **files_to_search, int files_to_search_len, char **words_to_search, int words_to_search_len, finder_cb finder_func)
 {
     // Verify finder func is provided.

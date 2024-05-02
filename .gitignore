@@ -1,2 +1,4 @@
 ex26*
 *.o
+.logfind
+.vscode/

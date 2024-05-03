@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <glob.h>
 #include "dbg.h"
 #include "logfind.h"
 
@@ -48,7 +47,7 @@ int main(int argc, char *argv[])
   memcpy(words_to_search, &argv[1 + set_or_flag], sizeof(char *) * words_to_search_len);
   check(words_to_search != NULL, "Failed to copy argv to words_to_search.");
 
-  glob_t **file_list = read_logfind_dot_file(logfind_dot_file, ptr_number_of_lines);
+  char **file_list = read_logfind_dot_file(logfind_dot_file, ptr_number_of_lines);
   check(file_list != NULL, "Failed to read content of dot file.");
 
   #ifndef NDEBUG

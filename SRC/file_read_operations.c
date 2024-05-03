@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <glob.h>
 #include "logfind.h"
 #include "dbg.h"
 
-glob_t **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
+char **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
 {
 
   char *rc = NULL;
@@ -12,28 +11,25 @@ glob_t **read_logfind_dot_file(FILE *logfind_dot_file, int *number_of_lines)
   // I tried to initialize an array with a single poinnter. This
   // did not work. Only the first element was initialized properly, but
   // I did not malloc enough memory for additional items.
-  glob_t **files_to_search = malloc(sizeof(char *) * MAX_FILES_TO_SEARCH);
-  glob_t **orig_address = files_to_search;
+  char **files_to_search = malloc(sizeof(char *) * MAX_FILES_TO_SEARCH);
+  char **orig_address = files_to_search;
 
   rewind(logfind_dot_file);
 
   while (true)
   {
-    *files_to_search = malloc(sizeof(glob_t));
-    char *temp = malloc(MAX_DATA);
-    rc = fgets(temp, MAX_DATA, logfind_dot_file);
-
+    *files_to_search = malloc(MAX_DATA);
+    rc = fgets(*files_to_search, MAX_DATA, logfind_dot_file);
+    
     if (rc == NULL)
     {
       break;
     }
 
-    // strcspn gets the length of the string until the charset (second string - "\n") is met.
-    // We use it to get the index of the \n char and replace it with a terminator byte.
+    // strcspn gets the length of the string until the charset (second string - "\n") is met. 
+    // We use it to get the index of the \n char and replace it with a terminator byte. 
     rc[strcspn(rc, "\n")] = 0;
 
-    glob(rc, 0, NULL, *files_to_search);
-    free(temp);
 
     files_to_search++;
     (*number_of_lines)++;
